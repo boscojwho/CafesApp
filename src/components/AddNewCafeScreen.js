@@ -1,8 +1,17 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
-import { Text, TextInput, KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { Button, Text, TextInput, KeyboardAvoidingView, StyleSheet } from 'react-native';
 
-const AddNewCafeScreen = () => {
+const AddNewCafeScreen = ({ navigation }) => {
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button title="Save" onPress={ () => navigation.goBack() } />
+      ),
+    });
+  }, [navigation])
+
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <Text style={Styles.textLabel}>Cafe Name</Text>
