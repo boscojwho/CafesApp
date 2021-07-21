@@ -9,6 +9,10 @@ const RootStack = createStackNavigator();
 const RootNavigationStack = () => {
   return (
     <RootStack.Navigator mode="modal" initialRouteName="CafesStack">
+      {/* 
+      Navigator can only have Screen components as direct children, 
+      so we nest screen components that themselves have another navigator object
+      */}
       <RootStack.Screen name="CafesStack" component={CafesNavigationStack} options={{ headerShown: false }} />
       <RootStack.Screen name="AddNewCafeStack" component={AddNewCafeNavigationStack} options={{ headerShown: false }} /> 
     </RootStack.Navigator>
