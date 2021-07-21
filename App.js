@@ -7,7 +7,7 @@
  */
 
 import * as React from 'react';
-import 'react-native-gesture-handler'; /// This import statement needs to be at the top of app entry point, as per React Native docs.
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -19,16 +19,12 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import RootScreen from './src/components/RootScreen';
-
-const MainStack = createStackNavigator();
+import RootNavigationStack from './src/components/RootStack';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <MainStack.Navigator>
-        <MainStack.Screen name="Cafes" component={RootScreen} options={{ title: "Cafes" }} />
-      </MainStack.Navigator>
+      <RootNavigationStack />
     </NavigationContainer>
   )
 }
