@@ -4,3 +4,5 @@ const pouchDB = new PouchDB('cafes');
 pouchDB.info().then(function (info) {
   console.log(info);
 })
+
+export default pouchDB;

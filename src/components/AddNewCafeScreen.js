@@ -1,13 +1,31 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
 import { Button, Text, TextInput, KeyboardAvoidingView, StyleSheet } from 'react-native';
+import pouchDB from '../../database';
+
+const saveNewCafe = (navigation) => {
+  const fakeItem = {
+    _id: new Date().toISOString(),
+    name: "Fake Cafe"
+  }
+  pouchDB.put(fakeItem, function callback(err, result) {
+    if (!err) {
+      console.log('Successfully posted a todo!');
+      pouchDB.info().then(function (info) {
+        console.log(info);
+      })
+      navigation.goBack()
+    } else {
+      console.log('Failed to save new cafe.')
+    }
+  });
+}
 
 const AddNewCafeScreen = ({ navigation }) => {
-
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button title="Save" onPress={ () => navigation.goBack() } />
+        <Button title="Save" onPress={ () => saveNewCafe(navigation) } />
       ),
     });
   }, [navigation])
