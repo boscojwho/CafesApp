@@ -1,14 +1,15 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import 'react-native-gesture-handler';
 import { Button, Text, TextInput, KeyboardAvoidingView, StyleSheet } from 'react-native';
 import pouchDB from '../../database';
 
-const saveNewCafe = (navigation) => {
-  const fakeItem = {
+const saveNewCafe = (navigation, name, location) => {
+  const newCafeItem = {
     _id: new Date().toISOString(),
-    name: "Fake Cafe"
+    name: name,
+    location: location
   }
-  pouchDB.put(fakeItem, function callback(err, result) {
+  pouchDB.put(newCafeItem, function callback(err, result) {
     if (!err) {
       console.log('Successfully posted a todo!');
       pouchDB.info().then(function (info) {
@@ -22,10 +23,13 @@ const saveNewCafe = (navigation) => {
 }
 
 const AddNewCafeScreen = ({ navigation }) => {
+  const [cafeName, setCafeName] = useState("");
+  const [location, setLocation] = useState("");
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button title="Save" onPress={ () => saveNewCafe(navigation) } />
+        <Button title="Save" onPress={ () => saveNewCafe(navigation, cafeName, location) } />
       ),
     });
   }, [navigation])
@@ -33,9 +37,9 @@ const AddNewCafeScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
       <Text style={Styles.textLabel}>Cafe Name</Text>
-      <TextInput style={Styles.textInput} placeholder="e.g. JJ Bean" autoCorrect={false}></TextInput>
+      <TextInput style={Styles.textInput} placeholder="e.g. JJ Bean" autoCorrect={false} onChangeText={(text) => {setCafeName(text)}}></TextInput>
       <Text style={Styles.textLabel}>Cafe Location</Text>
-      <TextInput style={Styles.textInput} placeholder="e.g. East Van" autoCorrect={false}></TextInput>
+      <TextInput style={Styles.textInput} placeholder="e.g. East Van" autoCorrect={false} onChangeText={(text) => {setLocation(text)}}></TextInput>
     </KeyboardAvoidingView>
   )
 }
