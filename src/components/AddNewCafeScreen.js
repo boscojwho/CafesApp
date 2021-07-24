@@ -9,6 +9,9 @@ const saveNewCafe = (navigation, name, location) => {
     name: name,
     location: location
   }
+  console.log(name);
+  console.log(location);
+  console.log(newCafeItem._id);
   pouchDB.put(newCafeItem, function callback(err, result) {
     if (!err) {
       console.log('Successfully posted a todo!');
@@ -23,8 +26,8 @@ const saveNewCafe = (navigation, name, location) => {
 }
 
 const AddNewCafeScreen = ({ navigation }) => {
-  const [cafeName, setCafeName] = useState("");
-  const [location, setLocation] = useState("");
+  const [cafeName, setCafeName] = useState("n/a");
+  const [location, setLocation] = useState("n/a");
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
